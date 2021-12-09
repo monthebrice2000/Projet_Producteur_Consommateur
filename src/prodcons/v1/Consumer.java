@@ -16,7 +16,7 @@ public class Consumer extends Thread{
         try {
             m = buffer.get();
         } catch (InterruptedException ex) {
-            ex.getMessage();
+            System.out.println( ex.getMessage() );
         } 
     }
 }

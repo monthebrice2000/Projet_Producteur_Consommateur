@@ -36,7 +36,7 @@ public class ProdConsBuffer implements IProdConsBuffer{
                 wait();
             }
             catch(InterruptedException e){
-                e.getMessage();
+                throw new InterruptedException("Un des Threads " + m.getIdProd() + " a été intérrompu");
             }
         }
         //Production du message 
@@ -58,7 +58,7 @@ public class ProdConsBuffer implements IProdConsBuffer{
                 wait();
             }
             catch(InterruptedException e){
-                e.getMessage();
+                throw new InterruptedException("Un des consommateurs a été intérrompu");
             }
         }
         //Consommation du message 

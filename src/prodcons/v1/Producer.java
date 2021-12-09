@@ -26,7 +26,7 @@ public class Producer extends Thread{
                 buffer.put(new Message(this));
                 //System.out.println("Un message produit par le thread : "+this.getId());
             } catch (InterruptedException ex) {
-                ex.getMessage();
+                System.out.println( ex.getMessage() );
             }
         }
     }
