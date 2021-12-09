@@ -34,7 +34,7 @@ public class ProdConsBuffer implements IProdConsBuffer{
     @Override
     public synchronized void put(Message m) throws InterruptedException {
     	
-        while ((nbConsDone < nbCons) && (notFull == 0)){
+        while ( nbConsDone<nbCons && notFull == 0 ){
             try{
                 wait();
             }
@@ -42,10 +42,13 @@ public class ProdConsBuffer implements IProdConsBuffer{
                 e.getMessage();
             }
         }
-        
+
         if(nbConsDone == nbCons) {
-        	Thread.currentThread().interrupt();
+            notifyAll();
+            Thread.currentThread().interrupt();
+            throw new InterruptedException( "Un message produit par le Thread : " + m.getIdProd()+ " est interrompu par inssufisance de consommateur");
         }
+
         
         //Production du message 
         buffer[in] = m;
@@ -73,6 +76,7 @@ public class ProdConsBuffer implements IProdConsBuffer{
                 if(nbProdDone == nbProd){
                 	notifyAll();
                     Thread.currentThread().interrupt();
+                    throw new InterruptedException("Le consommateur ne peut pas consommer par inssufisance de message");
                 }
                 wait();
             }

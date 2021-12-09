@@ -27,10 +27,10 @@ public class Producer extends Thread{
             try {
                 buffer.put(new Message(this));
             } catch (InterruptedException ex) {
-                ex.getMessage();
+                System.out.println( ex.getMessage() );
             }
         }
-        
+
         buffer.producerDone();
     }
     
